@@ -1,20 +1,19 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "linked_queue.h" 
-
-int isEmpty(Queue *q)
+#include "../Includes/linked_queue.h" 
+int CAT(isEmpty, T)(STR_TYPE *q)
 {
 	return q->pointer == NULL;
 }
 
-Queue *new_queue()
+STR_TYPE *CAT(new_queue, T)()
 {
-	Queue *q = malloc(sizeof(Queue));
+	STR_TYPE *q = malloc(sizeof(STR_TYPE));
 	q->pointer = NULL;
 	return q;
 }
 
-int enqueue(Queue *q, char i)
+int CAT(enqueue, T)(STR_TYPE *q, T i)
 {
 	Node *n = malloc(sizeof(Node));
 	if (n == NULL)
@@ -32,7 +31,7 @@ int enqueue(Queue *q, char i)
 	}
 }
 
-int dequeue(Queue *q, char *i)
+int CAT(dequeue, T)(STR_TYPE *q, T *i)
 {
 	if (q->pointer == NULL)
 		return 2;
@@ -50,9 +49,9 @@ int dequeue(Queue *q, char *i)
 	return 0;
 }
 
-void clear_queue(Queue *q)
+void CAT(clear_queue, T)(STR_TYPE *q)
 {
-	if (isEmpty(q))
+	if (CAT(isEmpty, T)(q))
 		return;
 	Node *th;
 	q->pointer->pre->next = NULL;
@@ -63,17 +62,4 @@ void clear_queue(Queue *q)
 		free(th);
 	}
 	q->pointer = NULL;
-}
-
-void print_queue(Queue *q)
-{
-	if (isEmpty(q))
-	{
-		printf("Queue is empty\n");
-		return;
-	}
-	Node *c = q->pointer;
-	printf("%c ", c->item);
-	for (c = c->next; c != q->pointer; c = c->next)
-		printf("%c ", c->item);
 }
