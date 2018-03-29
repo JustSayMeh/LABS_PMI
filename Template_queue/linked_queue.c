@@ -1,11 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "../Includes/linked_queue.h" 
+#include "linked_queue.h" 
 int CAT(isEmpty, T)(STR_TYPE *q)
 {
 	return q->pointer == NULL;
 }
-
 STR_TYPE *CAT(new_queue, T)()
 {
 	STR_TYPE *q = malloc(sizeof(STR_TYPE));

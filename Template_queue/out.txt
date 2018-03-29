@@ -1,0 +1,3 @@
+ -  +  *  f  h  *  f  *  b  m  +  *  g  h  *  g  *  b  m 
+((( f  *  h ) + ( f  * ( b  *  m ))) - (( g  *  h ) + ( g  * ( b  *  m ))))
+ f  h  *  f  b  m  *  *  +  g  h  *  g  b  m  *  *  +  - 

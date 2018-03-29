@@ -1,5 +1,4 @@
-#ifndef LINKED_QUEUE_H
-#define LINKED_QUEUE_H
+#include "three.h"
 #include "template_maker.h"
 #define STR_TYPE CAT(Queue, T)
 typedef struct _node Node;
@@ -18,4 +17,3 @@ int CAT(enqueue, T)(STR_TYPE *, T );
 int CAT(dequeue, T)(STR_TYPE *, T *);
 void CAT(print_queue, T)(STR_TYPE *);
 void CAT(clear_queue, T)(STR_TYPE *);
-#endif
