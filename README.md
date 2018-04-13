@@ -1,1 +1,1 @@
-it's simply realization of linked queue 
+Repository for laboratory works
