@@ -1,8 +1,16 @@
 #include "restorer.h"
-Bthree *restore_three(char *pre, char *in)
+#ifdef POST
+#define prior 1000
+#define oper <
+#elif PRE
+#define prior -1
+#define oper >
+#endif
+Bthree *look_top(Stack *);
+void restore_three(char *pre, char *in, Bthree **p)
 {
 	Stack *s  = new_stack();
-	Bthree *th = new_three(), *ret = NULL;
+	Bthree *th = new_three(), *ret = NULL, *lk = NULL;
 	th->elem = in[0];
 	push(s, th);
 	for (int i = 1; in[i] != '\0'; i++)
@@ -10,15 +18,12 @@ Bthree *restore_three(char *pre, char *in)
 		th = new_three();
 		th->elem = in[i];
 		int cp = search(in[i], pre);
-		char lelem = s->top->item->elem;
-		int lcp = search(lelem, pre);
-		if (cp < lcp)
-			three_push_left(s, th, cp, pre);
-		else 
-			push(s, th);
+		lk = look_top(s);
+		char lelem = lk->elem;
+		th->left = compaction(s, cp, pre);
+		push(s, th);
 	}
-	ret = totaly_pop(s);
-	return ret;
+	*p =  compaction(s, prior, pre);
 }
 int search(char j, char *s)
 {
@@ -29,36 +34,24 @@ int search(char j, char *s)
 	return i; 
 
 }
-int init(FILE *in)
+Bthree *look_top(Stack *s)
 {
-	char pre[256] = {0}, inf[256] = {0};
-	fscanf(in, "%s", pre);
-	fscanf(in, "%s", inf);
-	Bthree *t = restore_three(pre, inf);
+	return s->top->item;
 }
 
-void three_push_left(Stack *s, Bthree *th, int c, char *pre)
+void init(char *in, Bthree **d)
 {
-	Bthree *g = NULL, *acc = NULL;
-	while(!is_stack_empty(s) && search(s->top->item->elem, pre) > c)
-	{
-		pop(s, &g);
-		if (acc == NULL)
-			acc = g;
-		else 
-		{
-			g->right = acc;
-			acc = g;
-		} 
-	}
-	th->left = acc;
-	push(s, th);
+	Bthree *th = new_three();
+	FILE *file = fopen(in, "r");
+	char pre[256], inf[256];
+	fscanf(file," %s%s", pre, inf);
+	restore_three(pre, inf, d);
 }
 
-Bthree *totaly_pop(Stack *s)
+Bthree *compaction(Stack *s, int c, char *pre)
 {
-	Bthree *g = NULL, *acc = NULL;
-	while(!is_stack_empty(s))
+	Bthree *g = NULL, *acc = NULL, *step = NULL;
+	while(!is_stack_empty(s) && (step = look_top(s)) && search(step->elem, pre) oper c)
 	{
 		pop(s, &g);
 		if (acc == NULL)

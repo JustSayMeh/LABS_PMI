@@ -5,16 +5,9 @@ void in_order_print(Bthree *q)
 {
 	if (q == NULL)
 		return;
-	if (q->left == NULL)
-	{
-		printf(" %c ", q->elem);
-		return;
-	}
-	printf("(");
 	in_order_print(q->left);
 	printf(" %c ", q->elem);
 	in_order_print(q->right);
-	printf(")");
 }
 
 void pre_order_print(Bthree *q)
@@ -36,10 +29,13 @@ void post_order_print(Bthree *q)
 }
 int main(int argc, char *argv[])
 {
-	char *in = "abdcegfhj";
-	char *ou = "dbaegchfj";
-	Bthree *j = NULL;
-	j = restore_three(in, ou);
-	in_order_print(j);
+	Bthree *f = build_three();
+	//init(argv[1], &f);
+	pre_order_print(f);
+	printf("\n");
+	post_order_print(f);
+	printf("\n");
+	in_order_print(f);
+	printf("\n");
 	return 0;
 }
